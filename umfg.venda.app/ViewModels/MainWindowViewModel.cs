@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using umfg.venda.app.Abstracts;
-using umfg.venda.app.Components;
+using umfg.venda.app.Commands;
 using umfg.venda.app.Interfaces;
 
 namespace umfg.venda.app.ViewModels
@@ -30,6 +30,9 @@ namespace umfg.venda.app.ViewModels
         {
             if (subject is ListarProdutosViewModel)
                 UserControl = (subject as ListarProdutosViewModel).UserControl;
+
+            if (subject is ReceberPedidoViewModel)
+                UserControl = (subject as ReceberPedidoViewModel).UserControl;
         }
     }
 }
