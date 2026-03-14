@@ -57,7 +57,7 @@ namespace umfg.venda.app.ViewModels
         {
             Adicionar.RaiseCanExecuteChanged();
             Remover.RaiseCanExecuteChanged();
-            //Receber.RaiseCanExecuteChanged();
+            Receber.RaiseCanExecuteChanged();
         }
 
         private void CarregarProdutos()
