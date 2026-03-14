@@ -142,6 +142,18 @@
                     FontSize="24"
                     FontWeight="SemiBold"/>
             </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+
+                <Button
+                        Content="_Pagar"
+                        CommandParameter="{Binding}"
+                        Command="{Binding Pagar, UpdateSourceTrigger=PropertyChanged}"                        
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        Margin="0 5 10 0 "
+                        Background="#008000"
+                        Foreground="White"/>
+            </StackPanel>
         </Grid>
     </Viewbox>
 </UserControl>

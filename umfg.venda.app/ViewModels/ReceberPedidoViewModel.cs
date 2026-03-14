@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using umfg.venda.app.Abstracts;
+using umfg.venda.app.Commands;
 using umfg.venda.app.Interfaces;
 using umfg.venda.app.Models;
 
@@ -57,5 +58,8 @@ namespace umfg.venda.app.ViewModels
 
             Add(observer);
         }
+
+        public PagarPedidoCommand Pagar { get; private set; } = new();
+
     }
 }
