@@ -6,154 +6,292 @@
              xmlns:local="clr-namespace:umfg.venda.app.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
+    <UserControl.Resources>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#888780"/>
+            <Setter Property="Margin" Value="0,16,0,4"/>
+        </Style>
+
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="#2C2C2A"/>
+            <Setter Property="Background" Value="#FAFAF9"/>
+            <Setter Property="BorderBrush" Value="#D3D1C7"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1.5"/>
+            <Setter Property="Padding" Value="0,8"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ComboStyle" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="#2C2C2A"/>
+            <Setter Property="Background" Value="#FAFAF9"/>
+            <Setter Property="BorderBrush" Value="#D3D1C7"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1.5"/>
+            <Setter Property="Padding" Value="0,8"/>
+            <Setter Property="Height" Value="36"/>
+        </Style>
+    </UserControl.Resources>
+
     <Viewbox Stretch="Uniform">
-        <Grid Background="#ECF0F1" Height="720" Width="1080">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
+        <Grid Height="720" Width="1080" Background="#F1EFE8">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition MinWidth="500" MaxWidth="500"/>
+                <ColumnDefinition Width="420"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Row="0" 
-                        Grid.Column="0"
-                        Orientation="Horizontal">
-                <DataGrid ItemsSource="{Binding Pedido.Produtos}"
-                          HeadersVisibility="None"
-                          AutoGenerateColumns="False"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch"
-                          GridLinesVisibility="None"
-                          CanUserSortColumns="False">
-                    <DataGrid.Resources>
-                        <Style TargetType="DataGrid">
-                            <Setter Property="BorderThickness" Value="0"/>
-                        </Style>
+            <Grid Grid.Column="0" Background="#F1EFE8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
+                <Border Grid.Row="0" Padding="28,0,24,0" VerticalAlignment="Center">
+                    <TextBlock 
+                        Text="RESUMO DO PEDIDO"
+                        FontSize="15"
+                        FontWeight="Bold"
+                        Foreground="#888780"
+                        VerticalAlignment="Center"></TextBlock>
+                </Border>
+
+                <DataGrid 
+                    Grid.Row="1"
+                    ItemsSource="{Binding Pedido.Produtos}"
+                    HeadersVisibility="None"
+                    AutoGenerateColumns="False"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    GridLinesVisibility="None"
+                    CanUserSortColumns="False"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    RowBackground="Transparent"
+                    Margin="16,0,16,16">
+
+                    <DataGrid.Resources>
                         <Style TargetType="DataGridCell">
                             <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="BorderBrush" Value="#ECF0F1"/>
-                            <Setter Property="Background" Value="#ECF0F1"/>
-                            <Setter Property="Foreground" Value="Black"/>
-
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#2C2C2A"/>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="BorderBrush" Value="#E0E0E0"/>
-                                    <Setter Property="Background" Value="#E0E0E0"/>
-                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
                                 </Trigger>
                             </Style.Triggers>
+                        </Style>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Margin" Value="0,4"/>
                         </Style>
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="80">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Ellipse Height="150" Width="150" HorizontalAlignment="Center">
+                                    <Ellipse Height="56" Width="56" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Ellipse.Fill>
-                                            <ImageBrush ImageSource="{Binding Imagem}"/>
+                                            <ImageBrush ImageSource="{Binding Imagem}" Stretch="UniformToFill"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="300">
+                        <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="4,0">
                                         <TextBlock
                                             Text="{Binding Referencia}"
                                             FontWeight="SemiBold"
-                                            FontSize="24"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"/>
+                                            FontSize="13"
+                                            Foreground="#888780"/>
                                         <TextBlock 
                                             Text="{Binding Descricao}"
-                                            FontWeight="SemiBold"
-                                            FontSize="24"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
+                                            FontWeight="Normal"
+                                            FontSize="15"
+                                            Foreground="#2C2C2A"
                                             TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="115">  
+                        <DataGridTemplateColumn Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,8,0">
                                         <TextBlock 
-                                            Text="R$"
-                                            FontWeight="ExtraBold"
-                                            FontSize="24"
+                                            Text="R$ "
+                                            FontWeight="Normal"
+                                            FontSize="12"
+                                            Foreground="#888780"
                                             VerticalAlignment="Center"/>
                                         <TextBlock 
                                             Text="{Binding Valor}"
-                                            FontWeight="ExtraBold"
-                                            FontSize="24"
-                                            VerticalAlignment="Center"
-                                            TextWrapping="Wrap"/>
+                                            FontWeight="SemiBold"
+                                            FontSize="16"
+                                            Foreground="#2C2C2A"
+                                            VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </StackPanel>
+            </Grid>
 
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
-                <ComboBox 
-                    FontSize="24" 
-                    FontWeight="SemiBold" 
-                    SelectedIndex="0" 
-                    Width="500">
-                    <ComboBoxItem Content="Selecione um Cartão"/>
-                    <ComboBoxItem Content="Cartão de Crédito"/>
-                    <ComboBoxItem Content="Cartão de Débito"/>
-                </ComboBox>
+            <Border 
+                Grid.Column="1"
+                Background="#FFFFFF"
+                BorderBrush="#D3D1C7"
+                BorderThickness="1,0,0,0">
 
-                <TextBlock Text="Número do Cartão" FontSize="24" FontWeight="SemiBold"/>
-                <TextBox 
-                    Text="{Binding NumeroCartao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    FontSize="24"
-                    FontWeight="SemiBold"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="80"/>
+                    </Grid.RowDefinitions>
 
-                <TextBlock Text="Código CVV" FontSize="24" FontWeight="SemiBold"/>
-                <TextBox 
-                    Text="{Binding CVV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    FontSize="24"
-                    FontWeight="SemiBold"/>
+                    <Border Grid.Row="0" Padding="28,0" BorderBrush="#D3D1C7" BorderThickness="0,0,0,1">
+                        <TextBlock 
+                            Text="PAGAMENTO"
+                            FontSize="15"
+                            FontWeight="Bold"
+                            Foreground="#888780"
+                            VerticalAlignment="Center"></TextBlock>
+                    </Border>
 
-                <TextBlock Text="Data de Validade (MM/yy)" FontSize="24" FontWeight="SemiBold"/>
-                <TextBox 
-                    Text="{Binding DataValidade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    FontSize="24"
-                    FontWeight="SemiBold"/>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="28,8,28,0">
+                        <StackPanel Orientation="Vertical">
 
-                <TextBlock Text="Nome no Cartão" FontSize="24" FontWeight="SemiBold"/>
-                <TextBox 
-                    Text="{Binding Nome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    FontSize="24"
-                    FontWeight="SemiBold"/>
-            </StackPanel>
+                            <TextBlock Text="TIPO DE CARTÃO" Margin="10,5,0,0" Style="{StaticResource LabelStyle}"/>
+                            <ComboBox Style="{StaticResource ComboStyle}" SelectedIndex="0" Width="407">
+                                <ComboBoxItem Content="Selecione um cartão"/>
+                                <ComboBoxItem Content="Cartão de crédito"/>
+                                <ComboBoxItem Content="Cartão de débito"/>
+                            </ComboBox>
 
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                            <TextBlock Text="NÚMERO DO CARTÃO" Margin="10,5,0,0" Style="{StaticResource LabelStyle}"/>
+                            <TextBox 
+                                Style="{StaticResource InputStyle}"
+                                Text="{Binding NumeroCartao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                MaxLength="19" Width="408"/>
 
-                <Button
-                        Content="_Pagar"
-                        CommandParameter="{Binding}"
-                        Command="{Binding Pagar, UpdateSourceTrigger=PropertyChanged}"                        
-                        Style="{StaticResource MaterialDesignRaisedLightButton}"
-                        Margin="0 5 10 0 "
-                        Background="#008000"
-                        Foreground="White"/>
-            </StackPanel>
+                            <Grid Margin="10,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="CVV" Style="{StaticResource LabelStyle}"/>
+                                    <TextBox 
+                                        Style="{StaticResource InputStyle}"
+                                        Text="{Binding CVV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        MaxLength="4"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="VALIDADE" Style="{StaticResource LabelStyle}"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="12"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <ComboBox 
+                                            Grid.Column="0"
+                                            Style="{StaticResource ComboStyle}"
+                                            ItemsSource="{Binding Meses}"
+                                            SelectedItem="{Binding MesSelecionado, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding StringFormat='{}{0:D2}'}" FontSize="14"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+
+                                        <TextBlock 
+                                            Grid.Column="1"
+                                            Text="/" 
+                                            FontSize="16"
+                                            Foreground="#888780"
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center"/>
+
+                                        <ComboBox 
+                                            Grid.Column="1"
+                                            Style="{StaticResource ComboStyle}"
+                                            ItemsSource="{Binding Anos}"
+                                            SelectedItem="{Binding AnoSelecionado, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Margin="12,0,4,0"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                            <TextBlock Text="NOME NO CARTÃO" Margin="10,5,0,0" Style="{StaticResource LabelStyle}"/>
+                            <TextBox 
+                                Style="{StaticResource InputStyle}"
+                                Text="{Binding NomeCartao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="408"/>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                    
+                    
+                    <Border 
+                        Grid.Row="2"
+                        BorderBrush="#D3D1C7"
+                        BorderThickness="0,1,0,0"
+                        Padding="28,0">
+
+                        <StackPanel Orientation="Vertical">
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock 
+                                    Text="TOTAL:"
+                                    FontSize="12"
+                                    FontWeight="SemiBold"
+                                    Foreground="#888780"/>
+
+                                <TextBlock 
+                                    Text="{Binding TotalPedido, StringFormat=R$ {0:F2}}"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Foreground="#2C2C2A"
+                                    HorizontalAlignment="Right"
+                                    Margin="10,0,0,0"/>       
+                            </StackPanel>
+
+                        <Button
+                            Content="CONFIRMAR PAGAMENTO"
+                            CommandParameter="{Binding}"
+                            Command="{Binding Pagar, UpdateSourceTrigger=PropertyChanged}"
+                            Background="#2C2C2A"
+                            Foreground="White"
+                            FontSize="12"
+                            FontWeight="SemiBold"
+                            Height="44"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                        
+                </Grid>
+            </Border>
+
         </Grid>
     </Viewbox>
 </UserControl>

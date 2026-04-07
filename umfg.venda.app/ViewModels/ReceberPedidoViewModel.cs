@@ -14,27 +14,57 @@ namespace umfg.venda.app.ViewModels
     internal sealed class ReceberPedidoViewModel : AbstractViewModel
     {
         private PedidoModel _pedido = new();
-        private long _numeroCartao = 0;
-        private long _cvv = 0;
-        private DateTime _dataValidade = DateTime.MinValue;
+        private string _numeroCartao = string.Empty;
+        private string _cvv = string.Empty;
+        private string _dataValidade = string.Empty;
         private string _nomeCartao = string.Empty;
+        private int _mesSelecionado = 1;
+        private int _anoSelecionado = DateTime.Now.Year;
 
-        public long NumeroCartao 
+        public string NumeroCartao 
         {
             get => _numeroCartao;
             set => SetField(ref _numeroCartao, value);
         }
 
-        public long CVV
+        public string CVV
         {
             get => _cvv;
             set => SetField(ref _cvv, value);
         }
 
-        public DateTime DataValidade
+        public string DataValidade
         {
             get => _dataValidade;
             set => SetField(ref _dataValidade, value);
+        }
+
+        public int MesSelecionado
+        {
+            get => _mesSelecionado;
+            set
+            {
+                SetField(ref _mesSelecionado, value);
+                AtualizarDataValidade();
+            }
+        }
+
+        public int AnoSelecionado
+        {
+            get => _anoSelecionado;
+            set
+            {
+                SetField(ref _anoSelecionado, value);
+                AtualizarDataValidade();
+            }
+        }
+
+        public List<int> Meses { get; } = Enumerable.Range(1, 12).ToList();
+        public List<int> Anos { get; } = Enumerable.Range(DateTime.Now.Year, 20).ToList();
+
+        private void AtualizarDataValidade()
+        {
+            DataValidade = $"{MesSelecionado:D2}/{AnoSelecionado}";
         }
 
         public string NomeCartao
@@ -57,6 +87,11 @@ namespace umfg.venda.app.ViewModels
             Pedido = pedido ?? throw new ArgumentNullException(nameof(pedido));
 
             Add(observer);
+        }
+
+        public decimal TotalPedido
+        {
+            get => Pedido?.Produtos?.Sum(p => p.Valor) ?? 0;
         }
 
         public PagarPedidoCommand Pagar { get; private set; } = new();
